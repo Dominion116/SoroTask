@@ -1,66 +1,56 @@
-require('dotenv').config();
-const { Server, Keypair } = require('soroban-client');
-const ExecutionQueue = require('./src/queue');
-const MetricsServer = require('./src/server');
-const metrics = require('./src/metrics');
+import { loadConfig } from "./src/config.js";
+import { createLogger } from "./src/logger.js";
+import { createRpc } from "./src/rpc.js";
+import { loadAccount } from "./src/account.js";
+import { createPoller } from "./src/poller.js";
+import { GasMonitor } from "./src/gasMonitor.js";
+import { MetricsServer } from "./src/metrics.js";
 
 async function main() {
-    console.log("Starting SoroTask Keeper...");
+  const config = loadConfig();
+  const logger = createLogger();
 
-    // Initialize metrics server
-    const metricsServer = new MetricsServer();
-    await metricsServer.start();
+  const gasMonitor = new GasMonitor(logger);
+  const metricsServer = new MetricsServer(gasMonitor, logger);
 
-    // TODO: Initialize Soroban server connection
-    // const server = new Server(process.env.SOROBAN_RPC_URL);
+  metricsServer.start();
 
-    // TODO: Load keeper account
-    // const keeper = Keypair.fromSecret(process.env.KEEPER_SECRET);
+  logger.info("Starting SoroTask Keeper...");
+  logger.info("Configured network", {
+    networkPassphrase: config.networkPassphrase,
+    rpcUrl: config.rpcUrl,
+  });
 
-    const queue = new ExecutionQueue();
+  const rpc = await createRpc(config, logger);
+  const keeperAccount = loadAccount(config);
 
-    queue.on('task:started', (taskId) => console.log(`Started execution for task ${taskId}`));
-    queue.on('task:success', (taskId) => console.log(`Task ${taskId} executed successfully`));
-    queue.on('task:failed', (taskId, err) => console.error(`Task ${taskId} failed:`, err.message));
-    queue.on('cycle:complete', (stats) => console.log(`Cycle complete: ${JSON.stringify(stats)}`));
+  logger.info("Keeper account loaded", {
+    publicKey: keeperAccount.publicKey(),
+  });
 
-    // Dummy executor function for now
-    const dummyExecutor = async (taskId) => {
-        return new Promise((resolve) => setTimeout(resolve, 500));
-    };
+  const poller = createPoller({
+    config,
+    logger,
+    rpc,
+    keeperAccount,
+    metricsServer,
+  });
 
-    // Graceful shutdown handling
-    const shutdown = async (signal) => {
-        console.log(`\nReceived ${signal}. Starting graceful shutdown...`);
-        clearInterval(pollingInterval);
-        await queue.drain();
-        await metricsServer.stop();
-        console.log("Graceful shutdown complete. Exiting.");
-        process.exit(0);
-    };
+  poller.start();
 
-    process.on('SIGTERM', () => shutdown('SIGTERM'));
-    process.on('SIGINT', () => shutdown('SIGINT'));
+  const shutdown = async (signal) => {
+    logger.info(`Received ${signal}. Starting graceful shutdown...`);
+    await poller.stop?.();
+    metricsServer.stop();
+    logger.info("Shutdown complete.");
+    process.exit(0);
+  };
 
-    // Polling loop
-    const pollingInterval = setInterval(async () => {
-        const pollStartTime = new Date();
-        console.log("Checking for due tasks...");
-
-        // Update health check state
-        metricsServer.updateHealth({
-            lastPollAt: pollStartTime,
-            rpcConnected: true, // TODO: Set based on actual RPC connection status
-        });
-
-        // TODO: Query contract for tasks due for execution
-        // const dueTaskIds = await getDueTasks();
-        // metrics.increment('tasksCheckedTotal', dueTaskIds.length);
-        // await queue.enqueue(dueTaskIds, dummyExecutor);
-
-    }, 10000);
+  process.on("SIGTERM", () => shutdown("SIGTERM"));
+  process.on("SIGINT", () => shutdown("SIGINT"));
 }
 
-main().catch(err => {
-    console.error("Keeper failed:", err);
+main().catch((err) => {
+  console.error("Fatal Keeper Error:", err);
+  process.exit(1);
 });
