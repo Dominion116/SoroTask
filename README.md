@@ -134,6 +134,28 @@ sequenceDiagram
 2. **Monitor**: Keepers scan for due tasks.
 3. **Execute**: Keeper executes the task and gets rewarded.
 
+## Git Hooks
+
+This project uses [Husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged) to enforce code quality automatically on every commit.
+
+**What runs on `git commit`:**
+- `eslint --fix` + `prettier --write` on all staged `.js`, `.jsx`, `.ts`, and `.tsx` files.
+- `prettier --write` on all staged `.json`, `.md`, `.yml`, and `.yaml` files.
+
+Only staged files are processed, so commits stay fast regardless of monorepo size.
+
+**Setup** (first time after cloning):
+```bash
+npm install
+```
+The `prepare` script runs `husky` automatically, installing the hooks.
+
+**Bypassing hooks** (emergency use only):
+```bash
+git commit -m "your message" --no-verify
+```
+> ⚠️ Use `--no-verify` sparingly. It skips all pre-commit checks and should only be used when absolutely necessary.
+
 ## Monitoring
 
 The Keeper exposes HTTP endpoints for health checks and operational metrics.
