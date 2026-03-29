@@ -1,22 +1,26 @@
 version: 2
 updates:
-  # 1. GitHub Actions infrastructure
+  # 1. GitHub Actions (CI/CD workflows)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-    groups:
-      actions-updates:
-        patterns:
-          - "*"
+    labels:
+      - "automation"
+      - "maintenance"
 
-  # 2. Rust Smart Contract
+  # 2. Rust Smart Contract (Soroban)
+  # Matches your strict security requirements in deny.toml
   - package-ecosystem: "cargo"
     directory: "/contract"
     schedule:
       interval: "weekly"
+    labels:
+      - "dependencies"
+      - "smart-contract"
+      - "security"
     groups:
-      contract-dependencies:
+      contract-deps:
         patterns:
           - "*"
 
@@ -25,17 +29,34 @@ updates:
     directory: "/keeper"
     schedule:
       interval: "weekly"
+    labels:
+      - "dependencies"
+      - "keeper"
+      - "backend"
     groups:
-      keeper-dependencies:
+      keeper-deps:
         patterns:
           - "*"
 
-  # 4. Next.js Frontend
+  # 4. Next.js Frontend Dashboard
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
       interval: "weekly"
+    labels:
+      - "dependencies"
+      - "frontend"
+      - "ui"
     groups:
-      frontend-dependencies:
+      frontend-deps:
         patterns:
           - "*"
+
+  # 5. Root Project (Monorepo Tooling: Husky/Lint-staged)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "maintenance"
+      - "dx" # Developer Experience
