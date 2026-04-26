@@ -1,7 +1,5 @@
 # Existing patterns
 node_modules/
-.env
-.env.local
 
 # Coverage reports
 coverage/
@@ -31,3 +29,4 @@ Thumbs.db
 
 # CI
 .github/workflows/*.log
+config.bat
