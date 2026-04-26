@@ -1,4 +1,4 @@
-### Title: [Frontend] Backend Implement Keeper RPC Failover and Automatic Endpoint Health Scoring
+### Title: [Backend] Implement Keeper RPC Failover and Automatic Endpoint Health Scoring
 **Tags**: backend, keeper, rpc, reliability, complex
 **Contributor Focus**: [Reliability] Keep the keeper operating when one or more RPC endpoints degrade or fail
 **ETA**: 2 days
@@ -21,7 +21,7 @@ If the current RPC node becomes slow, rate limited, or unavailable, the keeper m
 - Logs and metrics clearly show which RPC endpoint is active.
 <hr>
 
-### Title: [Frontend] Backend Add Idempotent Task Execution Guards in the Keeper Pipeline
+### Title: [Backend] Add Idempotent Task Execution Guards in the Keeper Pipeline
 **Tags**: backend, keeper, execution, reliability, complex
 **Contributor Focus**: [Execution Safety] Prevent duplicate execution attempts for the same due task under retry conditions
 **ETA**: 2 days
@@ -44,7 +44,7 @@ Without explicit idempotency protection, duplicate submissions can waste gas, cr
 - Contributors can understand where idempotency state lives.
 <hr>
 
-### Title: [Frontend] Backend Build Distributed Keeper Locking for Multi-Instance Coordination
+### Title: [Backend] Build Distributed Keeper Locking for Multi-Instance Coordination
 **Tags**: backend, keeper, scaling, coordination, complex
 **Contributor Focus**: [Horizontal Scaling] Allow multiple keeper instances to run without stepping on the same work
 **ETA**: 2 days
@@ -67,7 +67,7 @@ Multiple keepers may detect the same task as due and race to execute it, causing
 - The mechanism is documented well enough for future scaling work.
 <hr>
 
-### Title: [Frontend] Backend Implement Keeper Dead-Letter Handling for Repeatedly Failing Tasks
+### Title: [Backend] Implement Keeper Dead-Letter Handling for Repeatedly Failing Tasks
 **Tags**: backend, keeper, retries, observability, complex
 **Contributor Focus**: [Failure Recovery] Capture permanently failing tasks without blocking healthy execution flow
 **ETA**: 2 days
@@ -90,7 +90,7 @@ Blindly retrying every failing task can create noise, consume resources, and hid
 - Retry and dead-letter rules are clearly defined.
 <hr>
 
-### Title: [Frontend] Backend Add Adaptive Poll Scheduling Based on Task Density and Network Conditions
+### Title: [Backend] Add Adaptive Poll Scheduling Based on Task Density and Network Conditions
 **Tags**: backend, keeper, scheduling, performance, complex
 **Contributor Focus**: [Efficiency] Reduce wasteful polling while still executing time-sensitive tasks on schedule
 **ETA**: 2 days
@@ -113,7 +113,7 @@ Polling too often wastes RPC capacity, while polling too slowly risks late task 
 - Polling decisions are visible through metrics or logs.
 <hr>
 
-### Title: [Frontend] Backend Build Transaction Submission Retry Logic with Error Classification
+### Title: [Backend] Build Transaction Submission Retry Logic with Error Classification
 **Tags**: backend, keeper, transactions, retries, complex
 **Contributor Focus**: [Transaction Reliability] Retry only the failures that are actually safe and useful to retry
 **ETA**: 2 days
@@ -136,7 +136,7 @@ A naive retry mechanism can turn one failure into many bad submissions or hide v
 - Contributors can extend the classifier without rewriting the whole pipeline.
 <hr>
 
-### Title: [Frontend] Backend Implement Contract Event Indexing for Task Lifecycle Analytics
+### Title: [Backend] Implement Contract Event Indexing for Task Lifecycle Analytics
 **Tags**: backend, contract, indexing, analytics, complex
 **Contributor Focus**: [Event Processing] Build a reliable backend view of task lifecycle events from on-chain activity
 **ETA**: 2 days
@@ -159,7 +159,7 @@ Without a structured event index, product analytics, debugging, and operator ins
 - The indexing flow is resilient to partial failures.
 <hr>
 
-### Title: [Frontend] Backend Add Execution Outcome Persistence for Keeper Audit History
+### Title: [Backend] Add Execution Outcome Persistence for Keeper Audit History
 **Tags**: backend, keeper, audit, storage, complex
 **Contributor Focus**: [Auditability] Persist each execution attempt with enough detail for operators and contributors to investigate failures
 **ETA**: 2 days
@@ -182,7 +182,7 @@ Without persisted execution records, it is difficult to understand trends, repea
 - Persistence does not materially degrade keeper throughput.
 <hr>
 
-### Title: [Frontend] Backend Implement Gas Budget Forecasting for Scheduled Task Execution
+### Title: [Backend] Implement Gas Budget Forecasting for Scheduled Task Execution
 **Tags**: backend, contract, gas, planning, complex
 **Contributor Focus**: [Cost Control] Help the backend reason about gas needs before tasks become due
 **ETA**: 2 days
@@ -205,7 +205,7 @@ Without forecasting, the system may discover insufficient gas only at execution 
 - The design leaves room for future model improvements.
 <hr>
 
-### Title: [Frontend] Backend Build Contract Storage Access Optimization for Large Task Sets
+### Title: [Backend] Build Contract Storage Access Optimization for Large Task Sets
 **Tags**: backend, contract, performance, storage, complex
 **Contributor Focus**: [Performance] Reduce expensive storage access patterns as task count grows
 **ETA**: 2 days
@@ -228,7 +228,7 @@ Inefficient access patterns can slow task discovery, increase RPC cost, and make
 - Benchmarking or profiling evidence is included.
 <hr>
 
-### Title: [Frontend] Backend Implement Structured Error Codes Across Keeper and Contract Boundaries
+### Title: [Backend] Implement Structured Error Codes Across Keeper and Contract Boundaries
 **Tags**: backend, errors, api, maintainability, complex
 **Contributor Focus**: [Error Design] Make backend failures easier to classify, debug, and expose safely to clients
 **ETA**: 2 days
@@ -251,7 +251,7 @@ Inconsistent error formats slow debugging and make user-facing messaging harder 
 - Sensitive internal details are not leaked accidentally.
 <hr>
 
-### Title: [Frontend] Backend Build Keeper Rate Limiting and Backpressure for RPC and Submit Paths
+### Title: [Backend] Build Keeper Rate Limiting and Backpressure for RPC and Submit Paths
 **Tags**: backend, keeper, rate-limiting, stability, complex
 **Contributor Focus**: [Backpressure] Prevent the backend from overwhelming external dependencies during spikes
 **ETA**: 2 days
@@ -274,7 +274,7 @@ Without backpressure, failures can cascade and recovery becomes slower than nece
 - Task execution eventually recovers cleanly after spikes.
 <hr>
 
-### Title: [Frontend] Backend Add Contract-Level Task Cancellation Event Guarantees and Tests
+### Title: [Backend] Add Contract-Level Task Cancellation Event Guarantees and Tests
 **Tags**: backend, contract, events, testing, complex
 **Contributor Focus**: [Contract Correctness] Ensure task cancellation produces predictable state changes and emitted events
 **ETA**: 2 days
@@ -297,7 +297,7 @@ Weak event guarantees make indexers and operator tooling harder to trust.
 - Consumers can rely on the documented event semantics.
 <hr>
 
-### Title: [Frontend] Backend Implement Resolver Call Timeout and Fallback Handling in the Keeper
+### Title: [Backend] Implement Resolver Call Timeout and Fallback Handling in the Keeper
 **Tags**: backend, keeper, resolver, reliability, complex
 **Contributor Focus**: [Resilience] Prevent slow or failing resolver checks from stalling overall execution throughput
 **ETA**: 2 days
@@ -320,7 +320,7 @@ If resolver checks hang or degrade, they can stall the whole polling and executi
 - Resolver result handling remains correct.
 <hr>
 
-### Title: [Frontend] Backend Build Keeper Benchmark Suite for Polling and Execution Throughput
+### Title: [Backend] Build Keeper Benchmark Suite for Polling and Execution Throughput
 **Tags**: backend, keeper, benchmarking, performance, complex
 **Contributor Focus**: [Performance Measurement] Give contributors a repeatable way to measure scaling improvements
 **ETA**: 2 days
@@ -343,7 +343,7 @@ Without a benchmark suite, optimization claims are hard to validate and regressi
 - Documentation explains benchmark assumptions.
 <hr>
 
-### Title: [Frontend] Backend Implement Circuit Breakers for Repeated Downstream RPC Failures
+### Title: [Backend] Implement Circuit Breakers for Repeated Downstream RPC Failures
 **Tags**: backend, keeper, rpc, resilience, complex
 **Contributor Focus**: [Stability] Stop the backend from hammering unhealthy dependencies when they are already failing
 **ETA**: 2 days
@@ -366,7 +366,7 @@ The system needs a way to pause or reduce pressure on known-bad dependencies tem
 - The rest of the backend remains stable under outage conditions.
 <hr>
 
-### Title: [Frontend] Backend Build Persistent Retry Scheduling for Failed Keeper Jobs
+### Title: [Backend] Build Persistent Retry Scheduling for Failed Keeper Jobs
 **Tags**: backend, keeper, retries, persistence, complex
 **Contributor Focus**: [Recovery Workflow] Ensure retryable failures survive process restarts and are retried intentionally
 **ETA**: 2 days
@@ -389,7 +389,7 @@ Transient failures need durable retry scheduling with visibility and control.
 - Retry scheduling does not create duplicate attempts.
 <hr>
 
-### Title: [Frontend] Backend Implement Contract Invariant Test Suite for Task Lifecycle Safety
+### Title: [Backend] Implement Contract Invariant Test Suite for Task Lifecycle Safety
 **Tags**: backend, contract, testing, invariants, complex
 **Contributor Focus**: [Contract Safety] Prove critical task lifecycle rules hold across many state transitions
 **ETA**: 2 days
@@ -412,7 +412,7 @@ Without invariant-style tests, subtle regressions can slip through when adding n
 - Invariants are documented in understandable language.
 <hr>
 
-### Title: [Frontend] Backend Build Fuzzing Harness for Contract Execution Edge Cases
+### Title: [Backend] Build Fuzzing Harness for Contract Execution Edge Cases
 **Tags**: backend, contract, fuzzing, security, complex
 **Contributor Focus**: [Robustness Testing] Explore unusual input combinations that normal tests are unlikely to cover
 **ETA**: 2 days
@@ -435,7 +435,7 @@ Handwritten tests rarely cover the full space of malformed or extreme inputs.
 - Findings can be triaged without excessive manual work.
 <hr>
 
-### Title: [Frontend] Backend Add Execution Fee Accounting Reconciliation Between Keeper and Contract
+### Title: [Backend] Add Execution Fee Accounting Reconciliation Between Keeper and Contract
 **Tags**: backend, contract, keeper, finance, complex
 **Contributor Focus**: [Accounting Accuracy] Ensure backend-reported fee usage matches what actually happened on-chain
 **ETA**: 2 days
@@ -458,7 +458,7 @@ Drift between observed and actual fee accounting makes dashboards and incident a
 - Future contributors can extend the accounting model safely.
 <hr>
 
-### Title: [Frontend] Backend Implement Task Priority Scheduling for the Keeper Execution Queue
+### Title: [Backend] Implement Task Priority Scheduling for the Keeper Execution Queue
 **Tags**: backend, keeper, scheduling, queueing, complex
 **Contributor Focus**: [Scheduling Strategy] Let the keeper choose execution order intentionally when many tasks become due together
 **ETA**: 2 days
@@ -481,7 +481,7 @@ A purely first-seen execution strategy may not be good enough under load.
 - The queue model can be adjusted without major rewrites.
 <hr>
 
-### Title: [Frontend] Backend Add Per-Task Execution Cooldown Enforcement in Keeper Retry Loops
+### Title: [Backend] Add Per-Task Execution Cooldown Enforcement in Keeper Retry Loops
 **Tags**: backend, keeper, scheduling, safeguards, complex
 **Contributor Focus**: [Safeguards] Avoid retry behavior that hammers the same task too aggressively after failure
 **ETA**: 2 days
@@ -504,7 +504,7 @@ Without cooldown rules, a bad task can create hot-loop behavior and crowd out he
 - The design avoids accidental permanent suppression.
 <hr>
 
-### Title: [Frontend] Backend Implement Historical Replay Mode for Keeper Debugging
+### Title: [Backend] Implement Historical Replay Mode for Keeper Debugging
 **Tags**: backend, keeper, debugging, tooling, complex
 **Contributor Focus**: [Developer Tooling] Reproduce backend behavior against recorded task and chain conditions
 **ETA**: 2 days
@@ -527,7 +527,7 @@ Without replay support, debugging complex keeper incidents depends on piecing to
 - Operational capture requirements are documented.
 <hr>
 
-### Title: [Frontend] Backend Build Webhook Delivery System for Task Lifecycle Notifications
+### Title: [Backend] Build Webhook Delivery System for Task Lifecycle Notifications
 **Tags**: backend, integrations, webhooks, delivery, complex
 **Contributor Focus**: [Integrations] Allow external systems to subscribe to backend task lifecycle updates
 **ETA**: 2 days
@@ -550,7 +550,7 @@ Webhook systems are hard because of retries, signature verification, delivery hi
 - Webhook failures do not block the rest of the backend.
 <hr>
 
-### Title: [Frontend] Backend Add Signed Webhook Verification and Replay Protection
+### Title: [Backend] Add Signed Webhook Verification and Replay Protection
 **Tags**: backend, integrations, security, webhooks, complex
 **Contributor Focus**: [Webhook Security] Protect webhook consumers and backend semantics from tampering or replay abuse
 **ETA**: 2 days
@@ -573,7 +573,7 @@ Unsigned or replayable webhook payloads can undermine trust in backend events.
 - Tests cover normal and malicious scenarios.
 <hr>
 
-### Title: [Frontend] Backend Implement High-Cardinality Metrics Control for Keeper Observability
+### Title: [Backend] Implement High-Cardinality Metrics Control for Keeper Observability
 **Tags**: backend, metrics, observability, keeper, complex
 **Contributor Focus**: [Observability Hygiene] Improve backend metrics without accidentally creating unbounded label explosion
 **ETA**: 2 days
@@ -596,7 +596,7 @@ Task ids, raw errors, or dynamic contract addresses can create high-cardinality 
 - Risky labels are identified and corrected.
 <hr>
 
-### Title: [Frontend] Backend Add Keeper Health Degradation States Beyond Simple Up or Down
+### Title: [Backend] Add Keeper Health Degradation States Beyond Simple Up or Down
 **Tags**: backend, keeper, healthchecks, observability, complex
 **Contributor Focus**: [Operational Clarity] Make backend health reporting more informative than a binary status
 **ETA**: 2 days
@@ -619,7 +619,7 @@ A simple healthy or unhealthy signal hides useful information about partial outa
 - Existing health behavior is not broken for simple consumers.
 <hr>
 
-### Title: [Frontend] Backend Implement Execution Jitter Controls to Avoid Thundering Herd Timing
+### Title: [Backend] Implement Execution Jitter Controls to Avoid Thundering Herd Timing
 **Tags**: backend, keeper, scheduling, performance, complex
 **Contributor Focus**: [Load Smoothing] Spread backend execution pressure when many tasks align at the same time boundary
 **ETA**: 2 days
@@ -642,7 +642,7 @@ This thundering herd effect can overload RPC calls, simulations, and submission 
 - The backend does not hide unacceptable lateness behind smoothing.
 <hr>
 
-### Title: [Frontend] Backend Build Contract Upgrade Safety Checklist and Migration Validation Tooling
+### Title: [Backend] Build Contract Upgrade Safety Checklist and Migration Validation Tooling
 **Tags**: backend, contract, upgrades, safety, complex
 **Contributor Focus**: [Upgrade Readiness] Reduce risk when contract logic or storage layout changes over time
 **ETA**: 2 days
@@ -665,7 +665,7 @@ Without structured validation, upgrades rely too much on manual memory and infor
 - The process reduces manual guesswork.
 <hr>
 
-### Title: [Frontend] Backend Add End-to-End Keeper Chaos Testing for Network and RPC Faults
+### Title: [Backend] Add End-to-End Keeper Chaos Testing for Network and RPC Faults
 **Tags**: backend, keeper, testing, chaos, complex
 **Contributor Focus**: [Resilience Testing] Validate how the backend behaves under realistic failure conditions
 **ETA**: 2 days
@@ -688,7 +688,7 @@ Standard tests often assume dependencies either work or fail cleanly, which is n
 - Findings can be turned into concrete follow-up work.
 <hr>
 
-### Title: [Frontend] Backend Implement Durable Task Snapshotting for Fast Cold Starts
+### Title: [Backend] Implement Durable Task Snapshotting for Fast Cold Starts
 **Tags**: backend, keeper, caching, startup, complex
 **Contributor Focus**: [Startup Performance] Reduce keeper cold-start time without serving dangerously stale task state
 **ETA**: 2 days
@@ -711,7 +711,7 @@ Cold starts can delay due-task detection if no durable local snapshot exists.
 - The feature is operationally transparent.
 <hr>
 
-### Title: [Frontend] Backend Build Fine-Grained Task Filtering in Keeper Discovery Loops
+### Title: [Backend] Build Fine-Grained Task Filtering in Keeper Discovery Loops
 **Tags**: backend, keeper, filtering, performance, complex
 **Contributor Focus**: [Selection Efficiency] Avoid unnecessary work by narrowing which tasks the keeper evaluates deeply
 **ETA**: 2 days
@@ -734,7 +734,7 @@ The keeper may spend too much time deeply evaluating tasks that are obviously no
 - Contributors can extend the filter chain safely.
 <hr>
 
-### Title: [Frontend] Backend Add Retry Budget Accounting to Prevent Infinite Failure Spirals
+### Title: [Backend] Add Retry Budget Accounting to Prevent Infinite Failure Spirals
 **Tags**: backend, retries, reliability, governance, complex
 **Contributor Focus**: [Failure Governance] Put hard limits around how much backend effort can be spent on persistent failures
 **ETA**: 2 days
@@ -757,7 +757,7 @@ Without retry budgets, persistent failure patterns can consume a disproportionat
 - Policies can be tuned without code archaeology.
 <hr>
 
-### Title: [Frontend] Backend Implement Contract Access Control Audit for Administrative Paths
+### Title: [Backend] Implement Contract Access Control Audit for Administrative Paths
 **Tags**: backend, contract, security, audit, complex
 **Contributor Focus**: [Security Review] Verify that privileged contract actions cannot be triggered by the wrong actors
 **ETA**: 2 days
@@ -780,7 +780,7 @@ Weak access control can undermine the trustworthiness of the whole automation sy
 - Ambiguities are surfaced for maintainers to address.
 <hr>
 
-### Title: [Frontend] Backend Build Task Execution Simulation Cache for Repeated Eligibility Checks
+### Title: [Backend] Build Task Execution Simulation Cache for Repeated Eligibility Checks
 **Tags**: backend, keeper, caching, simulation, complex
 **Contributor Focus**: [Efficiency] Avoid repeating expensive backend simulation work when inputs have not meaningfully changed
 **ETA**: 2 days
@@ -803,7 +803,7 @@ Repeated identical simulations waste RPC budget and can slow the keeper under lo
 - The cache does not hide real state changes.
 <hr>
 
-### Title: [Frontend] Backend Add Keeper Work Partitioning by Task Buckets or Shards
+### Title: [Backend] Add Keeper Work Partitioning by Task Buckets or Shards
 **Tags**: backend, keeper, scaling, sharding, complex
 **Contributor Focus**: [Scalability] Partition backend work intentionally as task volume grows
 **ETA**: 2 days
@@ -826,7 +826,7 @@ Without partitioning, scaling decisions become more manual and less predictable.
 - The design leaves room for future horizontal scale.
 <hr>
 
-### Title: [Frontend] Backend Implement Task State Reconciliation Between Indexed Data and On-Chain Truth
+### Title: [Backend] Implement Task State Reconciliation Between Indexed Data and On-Chain Truth
 **Tags**: backend, indexing, reconciliation, consistency, complex
 **Contributor Focus**: [Consistency] Detect and repair drift between backend read models and chain state
 **ETA**: 2 days
@@ -849,7 +849,7 @@ Backend consumers need a way to trust that secondary task views remain accurate 
 - The design avoids unsafe destructive fixes.
 <hr>
 
-### Title: [Frontend] Backend Build Keeper SLO Metrics for Poll Freshness and Execution Lateness
+### Title: [Backend] Build Keeper SLO Metrics for Poll Freshness and Execution Lateness
 **Tags**: backend, metrics, keeper, slos, complex
 **Contributor Focus**: [Service Objectives] Measure backend behavior in terms of reliability targets rather than raw counters only
 **ETA**: 2 days
@@ -872,7 +872,7 @@ Without defined SLO-style metrics, it is harder to reason about whether the back
 - The observability model supports future alerting work.
 <hr>
 
-### Title: [Frontend] Backend Add Contract Regression Matrix for Mixed Resolver and Non-Resolver Tasks
+### Title: [Backend] Add Contract Regression Matrix for Mixed Resolver and Non-Resolver Tasks
 **Tags**: backend, contract, testing, matrix, complex
 **Contributor Focus**: [Behavior Coverage] Ensure different task feature combinations stay correct as the contract evolves
 **ETA**: 2 days
@@ -895,7 +895,7 @@ Feature combinations can create gaps in coverage even when each feature is indiv
 - Contributors can add new combinations systematically.
 <hr>
 
-### Title: [Frontend] Backend Implement Execution Window Drift Detection for Recurring Tasks
+### Title: [Backend] Implement Execution Window Drift Detection for Recurring Tasks
 **Tags**: backend, keeper, timing, diagnostics, complex
 **Contributor Focus**: [Timing Correctness] Detect when recurring task execution drifts away from intended schedule behavior
 **ETA**: 2 days
@@ -918,7 +918,7 @@ Drift is hard to notice until it becomes a user-facing reliability issue.
 - The feature helps maintain long-term timing correctness.
 <hr>
 
-### Title: [Frontend] Backend Build Keeper Admin API for Operational Pause and Resume Controls
+### Title: [Backend] Build Keeper Admin API for Operational Pause and Resume Controls
 **Tags**: backend, api, operations, keeper, complex
 **Contributor Focus**: [Operational Control] Give maintainers safe ways to pause risky backend behavior during incidents
 **ETA**: 2 days
@@ -941,7 +941,7 @@ If operators can only kill the whole process, they lose too much visibility and 
 - The admin path is secured appropriately.
 <hr>
 
-### Title: [Frontend] Backend Add Keeper Authentication and Authorization for Admin Endpoints
+### Title: [Backend] Add Keeper Authentication and Authorization for Admin Endpoints
 **Tags**: backend, security, api, auth, complex
 **Contributor Focus**: [Admin Security] Protect backend operational endpoints from unauthorized use
 **ETA**: 2 days
@@ -964,7 +964,7 @@ Unprotected admin endpoints can create serious operational and security risks.
 - Endpoint protection fits the keeper’s deployment model.
 <hr>
 
-### Title: [Frontend] Backend Implement Contract Event Versioning for Safer Consumer Evolution
+### Title: [Backend] Implement Contract Event Versioning for Safer Consumer Evolution
 **Tags**: backend, contract, events, compatibility, complex
 **Contributor Focus**: [Backward Compatibility] Help backend consumers evolve safely as emitted event shapes change over time
 **ETA**: 2 days
@@ -987,7 +987,7 @@ Unversioned event evolution can break indexers, monitoring, and analytics unexpe
 - The design remains practical for future event additions.
 <hr>
 
-### Title: [Frontend] Backend Build Keeper Execution Trace Correlation Across Poll, Simulate, and Submit Stages
+### Title: [Backend] Build Keeper Execution Trace Correlation Across Poll, Simulate, and Submit Stages
 **Tags**: backend, observability, tracing, keeper, complex
 **Contributor Focus**: [Debuggability] Make it easy to follow one backend task through every major processing stage
 **ETA**: 2 days
@@ -1010,7 +1010,7 @@ Without trace correlation, debugging requires manual guesswork across disconnect
 - Debug workflows are documented.
 <hr>
 
-### Title: [Frontend] Backend Add Keeper Startup Validation for Contract Address and ABI Mismatch Risks
+### Title: [Backend] Add Keeper Startup Validation for Contract Address and ABI Mismatch Risks
 **Tags**: backend, keeper, startup, validation, complex
 **Contributor Focus**: [Startup Safety] Fail fast when the backend is pointed at incompatible contract configuration
 **ETA**: 2 days
@@ -1033,7 +1033,7 @@ Wrong contract ids, mismatched interfaces, or stale assumptions can cause confus
 - Contributors can extend the validation set safely.
 <hr>
 
-### Title: [Frontend] Backend Implement Task Payload Size and Argument Validation Hardening
+### Title: [Backend] Implement Task Payload Size and Argument Validation Hardening
 **Tags**: backend, contract, validation, security, complex
 **Contributor Focus**: [Input Hardening] Protect backend and contract paths from malformed or extreme task payloads
 **ETA**: 2 days
@@ -1056,7 +1056,7 @@ Weak validation around payload shape and size can cause performance issues, unex
 - Tests cover high-risk edge cases.
 <hr>
 
-### Title: [Frontend] Backend Build Rate-Aware Batching for Read-Heavy Keeper Queries
+### Title: [Backend] Build Rate-Aware Batching for Read-Heavy Keeper Queries
 **Tags**: backend, keeper, batching, performance, complex
 **Contributor Focus**: [Query Efficiency] Reduce read overhead by batching safe backend fetches where possible
 **ETA**: 2 days
@@ -1079,7 +1079,7 @@ Too many small reads can waste RPC capacity and increase latency under load.
 - The batching design respects external rate limits.
 <hr>
 
-### Title: [Frontend] Backend Implement Consistency Checks for Task Registration and Sequential ID Allocation
+### Title: [Backend] Implement Consistency Checks for Task Registration and Sequential ID Allocation
 **Tags**: backend, contract, consistency, testing, complex
 **Contributor Focus**: [Data Integrity] Verify backend assumptions around task creation and identifier sequencing remain true
 **ETA**: 2 days
@@ -1102,7 +1102,7 @@ If registration or id allocation semantics drift, many downstream systems can br
 - Contributors can understand why the checks matter.
 <hr>
 
-### Title: [Frontend] Backend Add Keeper Graceful Shutdown with In-Flight Execution Draining
+### Title: [Backend] Add Keeper Graceful Shutdown with In-Flight Execution Draining
 **Tags**: backend, keeper, lifecycle, reliability, complex
 **Contributor Focus**: [Process Safety] Shut the backend down cleanly without abandoning critical in-flight work abruptly
 **ETA**: 2 days
@@ -1125,7 +1125,7 @@ Hard shutdowns can interrupt transaction submission, drop execution context, or 
 - Restart behavior after graceful stop remains correct.
 <hr>
 
-### Title: [Frontend] Backend Implement Stale Task Detection and Cleanup Workflow for Backend Indexes
+### Title: [Backend] Implement Stale Task Detection and Cleanup Workflow for Backend Indexes
 **Tags**: backend, indexing, maintenance, cleanup, complex
 **Contributor Focus**: [Data Hygiene] Keep backend task views from accumulating outdated or misleading records over time
 **ETA**: 2 days
